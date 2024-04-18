@@ -8,6 +8,7 @@ jobs:
       image: debian:bookworm
       env:
         CGO_ENABLED: 1
+        GO111MODULE: on
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -21,6 +22,8 @@ jobs:
         run: ls 
       - name: update ca
         run: apt update && apt-get install -y ca-certificates
+      - name: install gcc
+        run: apt install build-essential
       - uses: actions/setup-go@v5
         with:
           go-version: '1.21.3'
