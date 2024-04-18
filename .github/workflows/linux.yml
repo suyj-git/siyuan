@@ -39,13 +39,19 @@ jobs:
       - name: build app
         run: cd app && npm install -g pnpm@8.14.1 && pnpm install && pnpm run build
       - name: gather app
-        run: mkdir /opt/siyuan/ && 
-          mv app/appearance/ /opt/siyuan/ && 
-          mv app/stage/ /opt/siyuan/ && 
-          mv app/guide/ /opt/siyuan/ && 
-          mv app/changelogs/ /opt/siyuan/ && 
-          mv app/pandoc/ /opt/siyuan/ && 
-          mv kernel/kernel /opt/siyuan/ && 
-          find /opt/siyuan/ -name .git | xargs rm -rf
-      - run: ls /opt/siyuan
+        run: mkdir dist/ && 
+          mv app/appearance/ dist/ && 
+          mv app/stage/ dist/ && 
+          mv app/guide/ dist/ && 
+          mv app/changelogs/ dist/ && 
+          mv app/pandoc/ dist/ && 
+          mv kernel/kernel dist/ && 
+          find dist/ -name .git | xargs rm -rf
+      - run: ls dist/ 
+      - name: Archive app
+        run: tar -czvf app.tar.gz dist/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: siyuan_server_x64_${{ github.run_number }}
+          path: app.tar.gz
       - run: echo "🍏 This job's status is ${{ job.status }}."
