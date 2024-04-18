@@ -20,8 +20,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 21
+      - name: install pnpm
+        run: wget -qO- https://get.pnpm.io/install.sh | sh -
       - name: build app
-        run: cd app && npm install -g pnpm && pnpm install && pnpm run build
+        run: cd app && pnpm install && pnpm run build
       - run: ls -R
       - uses: actions/setup-go@v5
       - run: go version
