@@ -10,9 +10,9 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - run: echo "Debian version:"
-        uses: actions/checkout@v4
+      - name: "Check Debian version:"
+        run: cat /etc/debian_version
+      - uses: actions/checkout@v4
       - name: List files in the repository
-        run: |
-          ls 
+        run: ls 
       - run: echo "🍏 This job's status is ${{ job.status }}."
