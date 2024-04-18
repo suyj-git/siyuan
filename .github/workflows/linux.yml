@@ -7,7 +7,6 @@ jobs:
     container:
       image: debian:bookworm
       env:
-        GO111MODULE: on
         CGO_ENABLED: 1
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
