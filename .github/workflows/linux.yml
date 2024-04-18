@@ -16,7 +16,7 @@ jobs:
       - name: "Check Debian version:"
         run: cat /etc/debian_version
       - name: Check disk usage
-        run: df -a
+        run: df -ah
       - uses: actions/checkout@v4
       - name: check PWD
         run: echo $PWD && export WORKDIR=$PWD
