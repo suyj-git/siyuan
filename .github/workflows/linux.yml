@@ -38,4 +38,14 @@ jobs:
           node-version: 21
       - name: build app
         run: cd app && npm install -g pnpm@8.14.1 && pnpm install && pnpm run build
+      - name: gather app
+        run: mkdir /opt/siyuan/ && |
+          mv app/appearance/ /opt/siyuan/ && |
+          mv app/stage/ /opt/siyuan/ && |
+          mv app/guide/ /opt/siyuan/ && |
+          mv app/changelogs/ /opt/siyuan/ && |
+          mv app/pandoc/ /opt/siyuan/ && |
+          mv kernel/kernel /opt/siyuan/ && |
+          find /opt/siyuan/ -name .git | xargs rm -rf
+      - run: ls /opt/siyuan
       - run: echo "🍏 This job's status is ${{ job.status }}."
