@@ -4,12 +4,34 @@ on: [push]
 jobs:
   build-kernel:
     runs-on: ubuntu-latest
+    container:
+      image: debian:bookworm
+      env:
+        GO111MODULE: on
+        CGO_ENABLED: 1
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: "Check Debian version:"
         run: cat /etc/debian_version
+      - name: Check disk usage
+        run: df -a
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+          with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+          tool-cache: false
+
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+          android: false
+          dotnet: false
+          haskell: false
+          large-packages: true
+          docker-images: true
+          swap-storage: true
       - uses: actions/checkout@v4
       - name: check PWD
         run: echo $PWD && export WORKDIR=$PWD
