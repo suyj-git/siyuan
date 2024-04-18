@@ -5,7 +5,7 @@ jobs:
   build-kernel:
     runs-on: ubuntu-latest
     container:
-      image: debian:bookworm-slim
+      image: debian:bookworm
       env:
         GO111MODULE: on
         CGO_ENABLED: 1
