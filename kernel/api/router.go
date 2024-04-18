@@ -79,6 +79,10 @@ func ServeAPI(ginServer *gin.Engine) {
 	ginServer.Handle("POST", "/api/account/deactivate", model.CheckAuth, model.CheckReadonly, deactivateUser)
 	ginServer.Handle("POST", "/api/account/startFreeTrial", model.CheckAuth, model.CheckReadonly, startFreeTrial)
 
+	//*************** Email
+	ginServer.Handle("POST", "/api/email/login", model.CheckAuth, loginEmailAccount)
+	//*************** Email
+
 	ginServer.Handle("POST", "/api/notebook/lsNotebooks", model.CheckAuth, lsNotebooks)
 	ginServer.Handle("POST", "/api/notebook/openNotebook", model.CheckAuth, model.CheckReadonly, openNotebook)
 	ginServer.Handle("POST", "/api/notebook/closeNotebook", model.CheckAuth, model.CheckReadonly, closeNotebook)
