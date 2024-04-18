@@ -4,11 +4,6 @@ on: [push]
 jobs:
   build-kernel:
     runs-on: ubuntu-latest
-    container:
-      image: debian:bookworm
-      env:
-        GO111MODULE: on
-        CGO_ENABLED: 1
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
