@@ -21,13 +21,13 @@ jobs:
         with:
           node-version: 21
       - name: build app
-        run: cd $WORKDIR/app && npm install -g pnpm && pnpm install && pnpm run build
+        run: cd app && npm install -g pnpm && pnpm install && pnpm run build
       - run: ls -R
       - uses: actions/setup-go@v5
       - run: go version
       - name: setup go env
         run: export GO111MODULE=on && CGO_ENABLED=1
       - name: build kernel
-        run: cd $WORKDIR/kernel && go build --tags fts5 -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
+        run: cd ../kernel && go build --tags fts5 -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
       - run: ls -R
       - run: echo "🍏 This job's status is ${{ job.status }}."
