@@ -28,7 +28,7 @@ jobs:
       - name: check go env
         run: echo $GO111MODULE && echo CGO_ENABLED
       - name: build kernel
-        run: cd kernel && go build --tags fts5 -o "../app/kernel/SiYuan-Kernel" -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
+        run: cd kernel && go build --tags fts5 -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
       - uses: actions/setup-node@v4
         with:
           node-version: 21
