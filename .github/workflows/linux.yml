@@ -26,7 +26,7 @@ jobs:
         with:
           go-version: '1.21.3'
       - name: check go env
-        run: echo $GO111MODULE && echo CGO_ENABLED
+        run: echo $GO111MODULE && echo $CGO_ENABLED && echo $GOPATH && echo $GOBIN && echo $PATH
       - name: Check disk usage
         run: df -ah
       - name: build kernel
