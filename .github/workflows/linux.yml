@@ -20,18 +20,18 @@ jobs:
         run: echo $PWD && export WORKDIR=$PWD
       - name: List files in the repository
         run: ls 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 21
-      - name: build app
-        run: cd app && npm install -g pnpm@8.14.1 && pnpm install && pnpm run build
+      - name: update ca
+        run: apt update && apt-get install -y ca-certificates
       - uses: actions/setup-go@v5
         with:
           go-version: '1.21.3'
       - name: check go env
         run: echo $GO111MODULE && echo CGO_ENABLED
-      - name: update ca
-        run: apk update && apk upgrade && apk add --no-cache ca-certificates && update-ca-certificates 2>/dev/null || true
       - name: build kernel
-        run: apk add --no-cache gcc musl-dev && cd kernel && go build --tags fts5 -o "../app/kernel/SiYuan-Kernel" -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
+        run: cd kernel && go build --tags fts5 -o "../app/kernel/SiYuan-Kernel" -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - name: build app
+        run: cd app && npm install -g pnpm@8.14.1 && pnpm install && pnpm run build
       - run: echo "🍏 This job's status is ${{ job.status }}."
