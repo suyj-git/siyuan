@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: debian:bookworm-slim
+      env:
+        - GO111MODULE: on
+        - CGO_ENABLED: 1
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -22,13 +25,11 @@ jobs:
           node-version: 21
       - name: build app
         run: cd app && npm install -g pnpm@8.14.1 && pnpm install && pnpm run build
-      - run: ls -R
       - uses: actions/setup-go@v5
         with:
           go-version: '1.21.3'
-      - name: setup go env
-        run: export GO111MODULE=on && export CGO_ENABLED=1
+      - name: check go env
+        run: echo $GO111MODULE && echo CGO_ENABLED
       - name: build kernel
-        run: cd ../kernel && go build --tags fts5 -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
-      - run: ls -R
+        run: cd kernel && go build --tags fts5 -o "../app/kernel/SiYuan-Kernel" -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
       - run: echo "🍏 This job's status is ${{ job.status }}."
