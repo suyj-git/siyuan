@@ -31,11 +31,7 @@ jobs:
       - name: check go env
         run: echo $GO111MODULE && echo CGO_ENABLED
       - name: update ca
-        run: apk update \
-        && apk upgrade \
-        && apk add --no-cache \
-        ca-certificates \
-        && update-ca-certificates 2>/dev/null || true
+        run: apk update && apk upgrade && apk add --no-cache ca-certificates && update-ca-certificates 2>/dev/null || true
       - name: build kernel
         run: apk add --no-cache gcc musl-dev && cd kernel && go build --tags fts5 -o "../app/kernel/SiYuan-Kernel" -v -ldflags "-s -w -X github.com/siyuan-note/siyuan/kernel/util.Mode=prod"
       - run: echo "🍏 This job's status is ${{ job.status }}."
