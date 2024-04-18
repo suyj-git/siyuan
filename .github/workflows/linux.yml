@@ -23,7 +23,7 @@ jobs:
       - name: update ca
         run: apt update && apt-get install -y ca-certificates
       - name: install gcc
-        run: apt install build-essential
+        run: apt install -y build-essential
       - uses: actions/setup-go@v5
         with:
           go-version: '1.21.3'
